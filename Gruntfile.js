@@ -39,15 +39,17 @@ module.exports = function(grunt) {
                         quote_style: 2
                     },
                     sourceMap: true,
-                    sourceMapName: "keyboard.map",
-                    //wrap: true
+                    sourceMapName: "keyboard.js.map",
+                    //wrap: true,
+                    enclose: true
                 },
                 files: {
-                    "keyboard.js":
+                    "keyboard.min.js":
                     [
-                        "src/js/KeyboardHandler.js",
-                        "src/js/KeyHandler.js",
-                        "src/js/keyboard.js"
+                        "src/js/keymap.js",
+                        "src/js/handlers/KeyboardHandler.js",
+                        "src/js/handlers/KeyHandler.js",
+                        "src/js/handlers/keyboard.js"
                     ]
                 }
             }
@@ -63,6 +65,10 @@ module.exports = function(grunt) {
             js: {
                 files: "src/js/*.js",
                 tasks: ["uglify", "jsdoc"]
+            },
+            css: {
+                files: "src/css/*.css",
+                tasks: ["cssmin"]
             }
         }
 
