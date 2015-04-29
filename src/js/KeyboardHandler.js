@@ -1,11 +1,11 @@
 /**
  * Keyboard Handler
  * @constructor
- * @param {string} svgIdentifier - the dom id of the keyboard layout.
+ * @param {KeymapHandler} keymap - the mapping to use by the keyboard
  */
-var KeyboardHandler = function()
+var KeyboardHandler = function(keymap)
 {
-
+    this.defineKeymap(keymap);
 }
 
 /**
@@ -29,15 +29,28 @@ KeyboardHandler.prototype.currentKey = undefined;
 KeyboardHandler.prototype.oldKey = undefined;
 
 /**
+ * Arrange the keys on the keyboard from a specific model
+ * @param {Object} svgIdentifier - the map of the keyboard.
+ */
+KeyboardHandler.prototype.defineKeymap = function(keymap)
+{
+    var self = this;
+    var k;
+    for (k in keymap) {
+        this.keyList[keymap[k]] = new KeyHandler(k, keymap[k]);
+    }
+}
+
+/**
  * Attach a new key to the keyboard
  * @param {string} svgIdentifier - the dom id of the key.
  * @param {int} keyCode - the code identifier of the key
  * @param {array} values - list of characters associated to the key
  */
-KeyboardHandler.prototype.addKey = function(svgIdentifier, keyCode, values)
+KeyboardHandler.prototype.addKey = function(svgIdentifier, keyCode)
 {
     var key = new KeyHandler(svgIdentifier, keyCode);
-    key.setCharacters(values);
+    //key.setCharacters(values);
 
     this.keyList[keyCode] = key;
     return this;
