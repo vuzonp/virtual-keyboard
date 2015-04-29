@@ -1,5 +1,5 @@
 #board { fill: #ddd; }
-#skb-layout { fill: #fff; }
+#skb-layout { fill: #eee; }
 
 text {
     fill: #000;
@@ -15,3 +15,8 @@ text {
 #k-enter text, #k-tab text { font-size: 15%; }
 #skb-sys text { font-size: 10%; }
 #k-lock text tspan:first-item { font-family: Symbola, "Segoia UI Symbol"; }
+
+/* Events Listeners */
+.on {
+    fill: #fff;
+}

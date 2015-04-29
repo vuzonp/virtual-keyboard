@@ -50,7 +50,13 @@ KeyHandler.prototype.charList = undefined;
  */
 KeyHandler.prototype.on = function()
 {
-    console.log("You press the key: " + this.code);
+    if (SKB_DEBUG) {
+        console.log("You press the key: " + this.code);
+    }
+
+    // Highlights the key
+    this.elem.classList.add('on');
+
     return this;
 }
 
@@ -60,6 +66,9 @@ KeyHandler.prototype.on = function()
  */
 KeyHandler.prototype.off = function()
 {
+    // Return to normal appareance
+    this.elem.classList.remove('on');
+
     return this;
 }
 
