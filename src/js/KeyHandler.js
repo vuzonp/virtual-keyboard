@@ -50,8 +50,8 @@ KeyHandler.prototype.charList = undefined;
  */
 KeyHandler.prototype.on = function()
 {
-    if (SKB_DEBUG) {
-        console.log("You press the key: " + this.code);
+    if (VKB_DEBUG) {
+        console.log("[KeyHandler] switch on: " + this.code);
     }
 
     // Highlights the key
@@ -66,6 +66,10 @@ KeyHandler.prototype.on = function()
  */
 KeyHandler.prototype.off = function()
 {
+    if (VKB_DEBUG) {
+        console.log("[KeyHandler] turn off: " + this.code);
+    }
+
     // Return to normal appareance
     this.elem.classList.remove('on');
 
