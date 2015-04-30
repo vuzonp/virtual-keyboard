@@ -1,14 +1,12 @@
 // Debug mode for the application
 const VKB_DEBUG = true;
 
+
 // Select the best keyboard's layout
-var layout = KeyboardHandler.autoLayout({
-    generic: genericKeyboardLayout,
-    gecko: geckoKeyboardLayout,
-});
+var kbl = KeyboardHandler.autoLayout(keyboardLayouts);
 
 // Create the virtual keyboard
-var vkb = new KeyboardHandler(layout);
+var vkb = new KeyboardHandler(kbl);
 
 /**
  * Listen the keys
@@ -22,7 +20,7 @@ document.onkeydown = function(ev)
     }
 
     // If the key is present in mapped, notify the keyboard.
-    if (layout.hasKeyCode(keyCode)) {
+    if (kbl.has(keyCode)) {
         vkb.notify(ev);
         return false;
     }

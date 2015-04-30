@@ -5,17 +5,19 @@
  */
 
 /**
- * Key Codes for Standard Keyboards
+ * Multi layout engines wrapper
+ * @static
+ * @global
  */
-var genericKeyboardLayout = new KeyboardLayoutModel({
+var keyboardLayouts = {};
 
-/*
-    See more:
-    - http://www.w3.org/TR/DOM-Level-3-Events-code/#keyboard-101
-    - https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
-*/
+keyboardLayouts.gecko = {};
+keyboardLayouts.trident = {};
+keyboardLayouts.webkit = {};
 
-// Writing System Keys
+keyboardLayouts.generic = new KeyboardLayoutModel({
+
+    // Writing System Keys
 
     backquote:      0xC0,   // ` and ~ on a US keyboard. This is the 半角/全角/漢字 (hankaku/zenkaku/kanji) key on Japanese keyboards
     backslash:      0xDC,   // \ and | on a US keyboard. Found only on standard 101-key layouts.
@@ -70,7 +72,7 @@ var genericKeyboardLayout = new KeyboardLayoutModel({
     semicolon:      0xBA,   // ; and : on a US keyboard.
     slash:          0xBF,   // / and ? on a US keyboard.
 
-// Functional Keys
+    // Functional Keys
 
     altLeft:        0x12,   // Labelled Alt or Option.
     altRight:       0x12,   // Labelled Alt or Option. This is the AltGr key on many keyboard layouts.
@@ -86,7 +88,7 @@ var genericKeyboardLayout = new KeyboardLayoutModel({
     space:          0x20,   // The \s key.
     tab:            0x09,   // The \t key
 
-// Control Pad Section
+    // Control Pad Section
 
     delete:         0x2E,   //
     end:            0x23,   //
@@ -96,14 +98,14 @@ var genericKeyboardLayout = new KeyboardLayoutModel({
     pageDown:       0x22,   //
     pageUp:         0x21,   //
 
-// Arrow Pad Section
+    // Arrow Pad Section
 
     arrowDown:      0x28,   // The ↓ key
     arrowLeft:      0x25,   // The ← key
     arrowRight:     0x27,   // The → key
     arrowUp:        0x26,   // The ↑ key
 
-// Function Section
+    // Function Section
 
     escape:         0x18,   //
     f1:             0x70,   // Function key
@@ -121,14 +123,12 @@ var genericKeyboardLayout = new KeyboardLayoutModel({
     fn:             0x00,   //
     printScreen:    0x2C,   // PrintScreen and SysReq
     scrollLock:     0x91,   //
-    pause:          0x13,   // Pause and Break
+    pause:          0x13    // Pause and Break
 
 });
 
-/**
- * Key Codes for Gecko (Mozilla) Keyboards
- */
-var geckoKeyboardLayout = new KeyboardLayoutModel(genericKeyboardLayout).customize({
+keyboardLayouts.gecko.win = new KeyboardLayoutModel(keyboardLayouts.generic)
+keyboardLayouts.gecko.win.customize({
 
     equal:          0x3D,
     intlHash:       0x00,
@@ -137,6 +137,55 @@ var geckoKeyboardLayout = new KeyboardLayoutModel(genericKeyboardLayout).customi
     minus:          0xAD,
     oSRight:        0x5B,
     quote:          0xDE,
-    semicolon:      0x3B,
+    semicolon:      0x3B
+
+});
+
+keyboardLayouts.gecko.mac = new KeyboardLayoutModel(keyboardLayouts.gecko.win)
+keyboardLayouts.gecko.mac.customize({
+
+    help:           0x2D,
+    intlRo:         0xA7,
+    intlYen:        0xDC,
+    oSLeft:         0xE0,
+    oSRight:        0xE0
+
+});
+
+keyboardLayouts.gecko.x11 = new KeyboardLayoutModel(keyboardLayouts.gecko.win)
+keyboardLayouts.gecko.x11.customize({
+
+    altRight:       0xE1,
+    help:           0x06,
+    printScreen:    0x2A
+
+});
+
+keyboardLayouts.trident.mac = keyboardLayouts.generic;
+
+keyboardLayouts.trident.win = keyboardLayouts.generic;
+
+keyboardLayouts.trident.x11 = keyboardLayouts.generic;
+
+keyboardLayouts.webkit.mac = new KeyboardLayoutModel(keyboardLayouts.generic)
+keyboardLayouts.webkit.mac.customize({
+
+    contextMenu:    0x00,
+    help:           0x2D,
+    oSRight:        0x5D,
+    pause:          0x7E,
+    printScreen:    0x7C,
+    scrollLock:     0x7D
+
+});
+
+keyboardLayouts.webkit.win = keyboardLayouts.generic;
+
+keyboardLayouts.webkit.x11 = new KeyboardLayoutModel(keyboardLayouts.generic)
+keyboardLayouts.webkit.x11.customize({
+
+    altRight:       0xE1,
+    help:           0x2F,
+    printScreen:    0x2A
 
 });

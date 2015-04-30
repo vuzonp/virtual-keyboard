@@ -14,25 +14,57 @@ var KeyboardHandler = function(layout)
     if (layout instanceof KeyboardLayoutModel) {
         this.setLayout(layout);
     } else {
-        console.log("[KeyboardHandler] Invalid layout of keyboard (KeyboardLayoutHandler)");
+        console.log("[KeyboardHandler] Invalid layout of keyboard (KeyboardLayoutModel)");
+        console.log(layout);
+    }
+};
+
+/**
+ * Detection of the OS
+ */
+KeyboardHandler.detectOS = function()
+{
+    if (navigator.appVersion.indexOf("Win") !== -1) {
+        return "win";
+    } else if (navigator.appVersion.indexOf("Mac") !== -1) {
+        return "mac";
+    } else if ((navigator.appVersion.indexOf("X11") !== -1) || (navigator.appVersion.indexOf("Linux") !== -1)) {
+        return "x11";
+    } else {
+        return "generic";
+    }
+};
+
+/**
+ * Detection of the layout engine
+ */
+KeyboardHandler.detectLayoutEngine = function()
+{
+    if (typeof InstallTrigger !== "undefined") {
+        return "gecko";
+    } else if (!!window.webkitURL) {
+        return "webkit";
+    } else if (/*@cc_on!@*/false || !!document.documentMode) {
+        return "trident";
+    } else {
+        return "generic";
     }
 };
 
 /**
  * Select the best layout to use by the keyboard from a browser engine detection
  */
-KeyboardHandler.autoLayout = function(keyLayouts)
+KeyboardHandler.autoLayout = function(kbls)
 {
-    // http://stackoverflow.com/questions/9847580/how-to-detect-safari-chrome-ie-firefox-and-opera-browser
-    if (typeof InstallTrigger !== 'undefined') {
-        if (VKB_DEBUG) console.log("[KeyboardHandler] New layout: Gecko");
-        return keyLayouts.gecko || keyLayouts.generic;
-    } else if (Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0) {
-        if (VKB_DEBUG) console.log("[KeyboardHandler] New layout: Safari");
-        return keyLayouts.safari || keyLayouts.generic;
+    var os = KeyboardHandler.detectOS();
+    var engine = KeyboardHandler.detectLayoutEngine();
+
+    if ("generic" === os || "generic" === engine) {
+        if (VKB_DEBUG) console.log("[KeyboardLayout] Detected layout: generic");
+        return kbls.generic;
     } else {
-        if (VKB_DEBUG) console.log("[KeyboardHandler] New layout: Generic");
-        return keyLayouts.generic;
+        if (VKB_DEBUG) console.log("[KeyboardLayout] Detected layout: keyboardLayouts.%s.%s", engine, os);
+        return kbls[engine][os];
     }
 };
 
