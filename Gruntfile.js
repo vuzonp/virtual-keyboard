@@ -47,7 +47,7 @@ module.exports = function(grunt) {
                     "keyboard.min.js":
                     [
                         // Libs
-                        "src/js/models/keyboardLayoutModel.js",
+                        "src/js/models/KeyboardLayoutModel.js",
                         "src/js/handlers/KeyHandler.js",
                         "src/js/handlers/KeyboardHandler.js",
 
