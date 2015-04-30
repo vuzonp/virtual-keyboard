@@ -467,5 +467,5 @@
         </g>
 
     </g>
-    <script type="text/ecmascript" xlink:href="./keyboard.js"></script>
+    <script type="text/ecmascript" xlink:href="./keyboard.min.js"></script>
 </svg>
