@@ -17,10 +17,10 @@ var KeyboardLayoutModel = function(layout)
 /**
  * List of values stored in the object
  */
- KeyboardLayoutModel.prototype._values = [];
+KeyboardLayoutModel.prototype._values = [];
 
 
- KeyboardLayoutModel.prototype.customize = function(layout)
+KeyboardLayoutModel.prototype.customize = function(layout)
 {
     var k, v;
     for (k in layout) {
@@ -41,7 +41,7 @@ var KeyboardLayoutModel = function(layout)
  * @param {int} keyCode - the code identifier of the key
  * @return {bool}
  */
- KeyboardLayoutModel.prototype.hasKeyCode = function(keyCode)
+KeyboardLayoutModel.prototype.has = function(keyCode)
 {
     return (this._values.indexOf(keyCode) > -1);
 };
@@ -52,7 +52,7 @@ var KeyboardLayoutModel = function(layout)
  * @param {int} keyCode - the code identifier of the key
  * @return {string} - the named index of the key
  */
- KeyboardLayoutModel.prototype.indexOf = function(keyCode)
+KeyboardLayoutModel.prototype.indexOf = function(keyCode)
 {
     if (this.hasKeyCode(keyCode)) {
         for (k in this) {
