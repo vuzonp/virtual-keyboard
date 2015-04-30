@@ -66,7 +66,7 @@ var genericKeyboardLayout = new KeyboardLayoutModel({
     keyZ:           0x5A,   // z on a US keyboard.
     minus:          0xBD,   // - and _ on a US keyboard.
     period:         0xBE,   // . and > on a US keyboard.
-    quote:          0xC0,   // ' and " on a US keyboard.
+    quote:          0xDE,   // ' and " on a US keyboard.
     semicolon:      0xBA,   // ; and : on a US keyboard.
     slash:          0xBF,   // / and ? on a US keyboard.
 
@@ -129,5 +129,14 @@ var genericKeyboardLayout = new KeyboardLayoutModel({
  * Key Codes for Gecko (Mozilla) Keyboards
  */
 var geckoKeyboardLayout = new KeyboardLayoutModel(genericKeyboardLayout).customize({
+
+    equal:          0x3D,
+    intlHash:       0x00,
+    intlRo:         0x00,
+    intlYen:        0x00,
+    minus:          0xAD,
+    oSRight:        0x5B,
     quote:          0xDE,
+    semicolon:      0x3B,
+
 });
