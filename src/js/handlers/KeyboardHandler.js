@@ -1,44 +1,72 @@
 /**
+ * @file Declaration of the keyboard handler
+ * @author Thomas Girard <geek@thomasgirard.fr>
+ * @copyright 2015 (c) Thomas Girard
+ */
+
+/**
  * Keyboard Handler
  * @constructor
- * @param {KeymapHandler} keymap - the mapping to use by the keyboard
+ * @param {KeyboardLayoutModel} layout - the layout to apply of the keyboard
  */
-var KeyboardHandler = function(keymap)
+var KeyboardHandler = function(layout)
 {
-    this.defineKeymap(keymap);
-}
+    if (layout instanceof KeyboardLayoutModel) {
+        this.setLayout(layout);
+    } else {
+        console.log("[KeyboardHandler] Invalid layout of keyboard (KeyboardLayoutHandler)");
+    }
+};
 
 /**
- * Last event from the keyboard
+ * Select the best layout to use by the keyboard from a browser engine detection
  */
+KeyboardHandler.autoLayout = function(keyLayouts)
+{
+    // http://stackoverflow.com/questions/9847580/how-to-detect-safari-chrome-ie-firefox-and-opera-browser
+    if (typeof InstallTrigger !== 'undefined') {
+        return keyLayouts.gecko || keyLayouts.generic;
+    } else if (Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0) {
+        return keyLayouts.safari || keyLayouts.generic;
+    } else {
+        return keyLayouts.generic;
+    }
+};
+
+/** Mapping used by the keyboard */
+KeyboardHandler.prototype.layout = undefined;
+
+/** Last event from the keyboard */
 KeyboardHandler.prototype.ev = undefined;
 
-/**
- * Map of keys assigned to the keyboard
- */
+/** Map of keys assigned to the keyboard */
 KeyboardHandler.prototype.keyList = {};
 
-/**
- * Currently active key
- */
+/** Currently active key */
 KeyboardHandler.prototype.currentKey = undefined;
 
-/**
- * Previous active key
- */
+/** Previous active key */
 KeyboardHandler.prototype.oldKey = undefined;
 
 /**
  * Arrange the keys on the keyboard from a specific model
  * @param {Object} svgIdentifier - the map of the keyboard.
  */
-KeyboardHandler.prototype.defineKeymap = function(keymap)
+KeyboardHandler.prototype.setLayout = function(layout)
 {
     var self = this;
     var k;
-    for (k in keymap) {
-        this.keyList[keymap[k]] = new KeyHandler(k, keymap[k]);
+    for (k in layout) {
+        if (layout.hasOwnProperty(k)) {
+            this.addKey(
+                k.charAt(0).toUpperCase() + k.slice(1),
+                layout[k]
+            );
+        }
     }
+
+    this.layout = layout;
+    return this;
 }
 
 /**

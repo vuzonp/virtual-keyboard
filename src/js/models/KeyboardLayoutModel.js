@@ -5,16 +5,27 @@
  */
 
 /**
- * Keymap Handler
+ * Keyboard Layout Handler
  * @constructor
- * @param {Object} map - the model of keyboard
+ * @param {Object} layout - the model of keyboard
  */
-var KeymapHandler = function(map)
+var KeyboardLayoutModel = function(layout)
+{
+    this.customize(layout);
+};
+
+/**
+ * List of values stored in the object
+ */
+ KeyboardLayoutModel.prototype._values = [];
+
+
+ KeyboardLayoutModel.prototype.customize = function(layout)
 {
     var k, v;
-    for (k in map) {
-        if (map.hasOwnProperty(k)) {
-            v = map[k];
+    for (k in layout) {
+        if (layout.hasOwnProperty(k)) {
+            v = layout[k];
 
             // set data as properties
             this[k] = v;
@@ -23,18 +34,14 @@ var KeymapHandler = function(map)
             this._values.push(v)
         }
     }
-
-    // Freeze the keymap
-    Object.freeze(this);
-};
-
+}
 
 /**
  * Check if a keyCode is present in the keymap
  * @param {int} keyCode - the code identifier of the key
  * @return {bool}
  */
-KeymapHandler.prototype.hasKeyCode = function(keyCode)
+ KeyboardLayoutModel.prototype.hasKeyCode = function(keyCode)
 {
     return (this._values.indexOf(keyCode) > -1);
 };
@@ -45,7 +52,7 @@ KeymapHandler.prototype.hasKeyCode = function(keyCode)
  * @param {int} keyCode - the code identifier of the key
  * @return {string} - the named index of the key
  */
-KeymapHandler.prototype.indexOf = function(keyCode)
+ KeyboardLayoutModel.prototype.indexOf = function(keyCode)
 {
     if (this.hasKeyCode(keyCode)) {
         for (k in this) {

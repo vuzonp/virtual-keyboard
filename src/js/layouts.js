@@ -7,7 +7,7 @@
 /**
  * Key Codes for Standard Keyboards
  */
-var DefaultKeymap = new KeymapHandler({
+var genericKeyboardLayout = new KeyboardLayoutModel({
 
 /*
     See more:
@@ -19,7 +19,7 @@ var DefaultKeymap = new KeymapHandler({
 
     backquote:      0xC0,   // ` and ~ on a US keyboard. This is the 半角/全角/漢字 (hankaku/zenkaku/kanji) key on Japanese keyboards
     backslash:      0xDC,   // \ and | on a US keyboard. Found only on standard 101-key layouts.
-    backspace:      0x00,   // Labelled Delete on Macintosh keyboards.
+    backspace:      0x08,   // Labelled Delete on Macintosh keyboards.
     bracketLeft:    0xDB,   // [ and { on a US keyboard.
     bracketRight:   0xDD,   // ] and } on a US keyboard.
     comma:          0xBC,   // , and < on a US keyboard.
@@ -123,4 +123,11 @@ var DefaultKeymap = new KeymapHandler({
     scrollLock:     0x91,   //
     pause:          0x13,   // Pause and Break
 
+});
+
+/**
+ * Key Codes for Gecko (Mozilla) Keyboards
+ */
+var geckoKeyboardLayout = new KeyboardLayoutModel(genericKeyboardLayout).customize({
+    quote:          0xDE,
 });

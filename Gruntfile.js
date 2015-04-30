@@ -19,7 +19,7 @@ module.exports = function(grunt) {
 
         jsdoc: {
             dist: {
-                src: ["src/js/*.js", "README.md"],
+                src: ["src/js/*.js", "src/js/handlers/*.js", "README.md"],
                 options: {
                     destination: "rtfm",
                     //template : "node_modules/grunt-jsdoc/node_modules/ink-docstrap/template",
@@ -46,10 +46,16 @@ module.exports = function(grunt) {
                 files: {
                     "keyboard.min.js":
                     [
-                        "src/js/keymap.js",
-                        "src/js/handlers/KeyboardHandler.js",
+                        // Libs
+                        "src/js/models/keyboardLayoutModel.js",
                         "src/js/handlers/KeyHandler.js",
-                        "src/js/handlers/keyboard.js"
+                        "src/js/handlers/KeyboardHandler.js",
+
+                        // models
+                        "src/js/layouts.js",
+
+                        // controllers
+                        "src/js/keyboard.js"
                     ]
                 }
             }
@@ -63,7 +69,7 @@ module.exports = function(grunt) {
                 files: ["Gruntfile.js"]
             },
             js: {
-                files: "src/js/*.js",
+                files: ["src/js/*.js", "src/js/handlers/*.js"],
                 tasks: ["uglify", "jsdoc"]
             },
             css: {
