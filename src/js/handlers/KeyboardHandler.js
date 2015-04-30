@@ -25,10 +25,13 @@ KeyboardHandler.autoLayout = function(keyLayouts)
 {
     // http://stackoverflow.com/questions/9847580/how-to-detect-safari-chrome-ie-firefox-and-opera-browser
     if (typeof InstallTrigger !== 'undefined') {
+        if (VKB_DEBUG) console.log("[KeyboardHandler] New layout: Gecko");
         return keyLayouts.gecko || keyLayouts.generic;
     } else if (Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0) {
+        if (VKB_DEBUG) console.log("[KeyboardHandler] New layout: Safari");
         return keyLayouts.safari || keyLayouts.generic;
     } else {
+        if (VKB_DEBUG) console.log("[KeyboardHandler] New layout: Generic");
         return keyLayouts.generic;
     }
 };

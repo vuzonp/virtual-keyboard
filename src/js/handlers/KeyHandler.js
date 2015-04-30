@@ -24,6 +24,10 @@ var KeyHandler = function(svgIdentifier, keyCode)
 
     // Attach a svg element to the key:
     this.elem = document.getElementById(svgIdentifier);
+
+    if (VKB_DEBUG) {
+        console.log("[KeyHandler] Key [" + svgIdentifier + "] is identified by : " + keyCode);
+    }
 }
 
 /**
@@ -52,6 +56,7 @@ KeyHandler.prototype.on = function()
 {
     if (VKB_DEBUG) {
         console.log("[KeyHandler] switch on: " + this.code);
+        console.log(this.elem);
     }
 
     // Highlights the key
