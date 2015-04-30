@@ -1,11 +1,19 @@
 /**
+ * @file Mapping of keyboards
+ * @author Thomas Girard <geek@thomasgirard.fr>
+ * @copyright 2015 (c) Thomas Girard
+ */
+
+/**
  * Key Codes for Standard Keyboards
- *
- * See more:
- * - http://www.w3.org/TR/DOM-Level-3-Events-code/#keyboard-101
- * - https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
  */
 var DefaultKeymap = new KeymapHandler({
+
+/*
+    See more:
+    - http://www.w3.org/TR/DOM-Level-3-Events-code/#keyboard-101
+    - https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
+*/
 
 // Writing System Keys
 
